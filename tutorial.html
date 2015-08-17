@@ -7,20 +7,23 @@
             var clientId = '[YOUR-CLIENT-ID]';
             var scope = 'timetable';
 
-            // Check for access token
+            // Check for an access token
             function checkAuth() {
-                psc.auth.authorise({clientId:clientId, scope:scope}, 'handleAuthResult');
+                psc.auth.authorise(
+                        {clientId:clientId, scope:scope},
+                        'handleAuthResult'
+                );
             }
 
             function handleAuthResult(authResult) {
-                var authorizeButton = document.getElementById('authorize-button');
+                var authoriseButton = document.getElementById('authorise-button');
                 if (authResult && !authResult.error) {
-                  authorizeButton.style.visibility = 'hidden';
+                  authoriseButton.style.visibility = 'hidden';
                   readTimetable();
                 } else {
                   console.log(authResult.message);
-                  authorizeButton.style.visibility = '';
-                  authorizeButton.onclick = checkAuth;
+                  authoriseButton.style.visibility = '';
+                  authoriseButton.onclick = checkAuth;
                 }
             }
 
@@ -34,7 +37,7 @@
                             HTML += "<li>"+data.timetable[key].Title+" : "+data.timetable[key].Start+"</li>";
                         }
                     }
-                    document.getElementById('load').innerHTML = HTML;
+                    document.getElementById('timetable').innerHTML = HTML;
                 }, function(error) {
                     console.log(error);
                 });
@@ -42,9 +45,9 @@
         </script>
     </head>
     <body onload="checkAuth()">
-        <button id="authorize-button" style="visibility: hidden">Log in</button>
+        <button id="authorise-button" style="visibility: hidden">Log in</button>
         <h1>Timetable</h1>
-        <ul id="load"><li>loading</li></ul>
+        <ul id="timetable"><li>loading&hellip;</li></ul>
     </body>
 </html>
 
