@@ -5,14 +5,10 @@
 
         <script type="text/javascript">
             var clientId = '[YOUR-CLIENT-ID]';
-            var scope = 'timetable';
 
             // Check for an access token
             function checkAuth() {
-                psc.auth.authorise(
-                        {clientId:clientId, scope:scope},
-                        'handleAuthResult'
-                );
+                psc.auth.authorise({clientId:clientId},'handleAuthResult');
             }
 
             function handleAuthResult(authResult) {
